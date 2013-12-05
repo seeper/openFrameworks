@@ -107,6 +107,10 @@ protected:
 	StreamConverterBuf _buf;
 };
 
+// Tim 2013-12-03 Safe to ignore warning
+// (see http://connect.microsoft.com/VisualStudio/feedback/details/733720/)
+#pragma warning( push )
+#pragma warning( disable : 4250 )
 
 class Foundation_API InputStreamConverter: public StreamConverterIOS, public std::istream
 	/// This stream converts all characters read from the
@@ -143,6 +147,8 @@ public:
 		/// Destroys the CountingOutputStream.
 };
 
+// Tim 2013-12-03. See above
+#pragma warning( pop )
 
 } // namespace Poco
 
