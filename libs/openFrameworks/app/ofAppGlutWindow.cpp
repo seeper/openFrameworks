@@ -10,6 +10,8 @@
 #ifdef TARGET_WIN32
 	#define GLUT_BUILDING_LIB
 	#include "glut.h"
+#define NOMINMAX
+#include <Windows.h>
 #endif
 #ifdef TARGET_OSX
     #include <OpenGL/OpenGL.h>
@@ -169,10 +171,16 @@ static void fixCloseWindowOnWin32(){
 	DragAcceptFiles (handle, TRUE);
 
 	//store the current message event handler for the window
+#if defined __x86_64__ || defined _WIN64
+	currentWndProc = (WNDPROC)GetWindowLongPtr(handle, GWLP_WNDPROC);
+	//tell the window to now use our event handler!
+	SetWindowLongPtr(handle, GWLP_WNDPROC, (long)winProc);
+#else
 	currentWndProc = (WNDPROC)GetWindowLongPtr(handle, GWL_WNDPROC);
-
 	//tell the window to now use our event handler!
 	SetWindowLongPtr(handle, GWL_WNDPROC, (long)winProc);
+#endif
+
 }
 
 #endif
