@@ -64,7 +64,7 @@ float * ofFmodSoundGetSpectrum(int nBands){
 	if (nBandsToGet < 64) nBandsToGet = 64;  // can't seem to get fft of 32, etc from fmodex
 
 	// 	get the fft
-	FMOD_System_GetSpectrum(sys, fftSpectrum_, nBandsToGet, 0, FMOD_DSP_FFT_WINDOW_HANNING);
+	//FMOD_System_GetSpectrum(sys, fftSpectrum_, nBandsToGet, 0, FMOD_DSP_FFT_WINDOW_HANNING); //FMOD Studio
 
 	// 	convert to db scale
 	for(int i = 0; i < nBandsToGet; i++){
@@ -197,8 +197,9 @@ bool ofFmodSoundPlayer::loadSound(string fileName, bool stream){
 	// [3] load sound
 
 	//choose if we want streaming
-	int fmodFlags =  FMOD_SOFTWARE;
-	if(stream)fmodFlags =  FMOD_SOFTWARE | FMOD_CREATESTREAM;
+	//int fmodFlags =  FMOD_SOFTWARE;
+	int fmodFlags = FMOD_DEFAULT;
+	if(stream)fmodFlags =  FMOD_DEFAULT | FMOD_CREATESTREAM;
 
 	result = FMOD_System_CreateSound(sys, fileName.c_str(),  fmodFlags, NULL, &sound);
 
@@ -361,7 +362,8 @@ void ofFmodSoundPlayer::play(){
 		FMOD_Channel_Stop(channel);
 	}
 
-	FMOD_System_PlaySound(sys, FMOD_CHANNEL_FREE, sound, bPaused, &channel);
+	//FMOD_System_PlaySound(sys, FMOD_CHANNEL_FREE, sound, bPaused, &channel);
+	FMOD_System_PlaySound(sys, sound, channelgroup, bPaused, &channel); //FMOD Studio addition
 
 	FMOD_Channel_GetFrequency(channel, &internalFreq);
 	FMOD_Channel_SetVolume(channel,volume);
