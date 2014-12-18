@@ -90,6 +90,7 @@ namespace FMOD
         FMOD_RESULT F_API getDSPInfoByPlugin      (unsigned int handle, const FMOD_DSP_DESCRIPTION **description);
         FMOD_RESULT F_API registerCodec           (FMOD_CODEC_DESCRIPTION *description, unsigned int *handle, unsigned int priority = 0);
         FMOD_RESULT F_API registerDSP             (const FMOD_DSP_DESCRIPTION *description, unsigned int *handle);
+        FMOD_RESULT F_API registerOutput          (const FMOD_OUTPUT_DESCRIPTION *description, unsigned int *handle);
 
         // Init/Close.
         FMOD_RESULT F_API init                    (int maxchannels, FMOD_INITFLAGS flags, void *extradriverdata);
@@ -277,7 +278,8 @@ namespace FMOD
         FMOD_RESULT F_API setCallback            (FMOD_CHANNELCONTROL_CALLBACK callback);
         FMOD_RESULT F_API isPlaying              (bool *isplaying);
 
-        // Panning and level adjustment.
+        // Panning and level adjustment.  
+        // Note all 'set' functions alter a final matrix, this is why the only get function is getMixMatrix, to avoid other get functions returning incorrect/obsolete values.
         FMOD_RESULT F_API setPan                 (float pan);
         FMOD_RESULT F_API setMixLevelsOutput     (float frontleft, float frontright, float center, float lfe, float surroundleft, float surroundright, float backleft, float backright);
         FMOD_RESULT F_API setMixLevelsInput      (float *levels, int numlevels);
@@ -289,6 +291,7 @@ namespace FMOD
         FMOD_RESULT F_API setDelay               (unsigned long long dspclock_start, unsigned long long dspclock_end, bool stopchannels = true);
         FMOD_RESULT F_API getDelay               (unsigned long long *dspclock_start, unsigned long long *dspclock_end, bool *stopchannels = 0);
         FMOD_RESULT F_API addFadePoint           (unsigned long long dspclock, float volume);
+        FMOD_RESULT F_API setFadePointRamp       (unsigned long long dspclock, float volume);
         FMOD_RESULT F_API removeFadePoints       (unsigned long long dspclock_start, unsigned long long dspclock_end);
         FMOD_RESULT F_API getFadePoints          (unsigned int *numpoints, unsigned long long *point_dspclock, float *point_volume);
 

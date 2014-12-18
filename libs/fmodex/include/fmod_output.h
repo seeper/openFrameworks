@@ -10,8 +10,6 @@
 #ifndef _FMOD_OUTPUT_H
 #define _FMOD_OUTPUT_H
 
-#include "fmod.h"
-
 typedef struct FMOD_OUTPUT_STATE FMOD_OUTPUT_STATE;
 
 /*

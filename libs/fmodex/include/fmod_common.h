@@ -15,7 +15,7 @@
     0xaaaabbcc -> aaaa = major version number.  bb = minor version number.  cc = development version number.
 */
 
-#define FMOD_VERSION    0x00010507
+#define FMOD_VERSION    0x00010509
 
 /*
     Compiler specific settings.
@@ -322,7 +322,7 @@ struct FMOD_ASYNCREADINFO
     void                 *buffer;    /* [w] Buffer to read file data into. */
     unsigned int          bytesread; /* [w] Fill this in before setting result code to tell FMOD how many bytes were read. */
 
-    void    (*done)(FMOD_ASYNCREADINFO *info, FMOD_RESULT result);    /* [r] FMOD file system wake up function.  Call this when user file read is finished.  Pass result of file read as a parameter. */
+    void (F_CALLBACK *done)(FMOD_ASYNCREADINFO *info, FMOD_RESULT result);    /* [r] FMOD file system wake up function.  Call this when user file read is finished.  Pass result of file read as a parameter. */
 };
 
 
@@ -1620,6 +1620,7 @@ typedef struct FMOD_ADVANCEDSETTINGS
 
 #include "fmod_codec.h"
 #include "fmod_dsp.h"
+#include "fmod_output.h"
 
 #endif
 
